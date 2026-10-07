@@ -19,6 +19,8 @@ uv run python manage.py test <app>.tests.<Class>.<test_method>   # single test
 
 No linter or formatter is configured.
 
+`SECRET_KEY` is read from `DJANGO_SECRET_KEY` (loaded from a git-ignored `.env` via python-dotenv). After cloning, copy `.env.example` to `.env` and set a real value.
+
 ## Layout
 
 - `core/` is the Django project package (settings, root URLconf, ASGI/WSGI). `manage.py` uses `core.settings`.
