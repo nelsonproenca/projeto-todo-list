@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "skills": {
+    "cdrf-expert": {
+      "source": "vintasoftware/django-ai-plugins",
+      "sourceType": "github",
+      "skillPath": "skills/cdrf-expert/SKILL.md",
+      "computedHash": "7721f912dccc51c2b06934c2de58e456dc5498b6e996cb30cf3ef1c992f28377"
+    },
+    "django-celery-expert": {
+      "source": "vintasoftware/django-ai-plugins",
+      "sourceType": "github",
+      "skillPath": "skills/django-celery-expert/SKILL.md",
+      "computedHash": "163ad566532bf0a90f31bd27f70255742f06d6110c4508b5a0ee8ec8df301121"
+    },
+    "django-expert": {
+      "source": "vintasoftware/django-ai-plugins",
+      "sourceType": "github",
+      "skillPath": "skills/django-expert/SKILL.md",
+      "computedHash": "3efd4c5513e401438dd3c275a7ce7c7838566bfc455d22ed731fbc5879cb56c1"
+    },
+    "django-reviewer": {
+      "source": "vintasoftware/django-ai-plugins",
+      "sourceType": "github",
+      "skillPath": "skills/django-reviewer/SKILL.md",
+      "computedHash": "ba697251efca4397237ce78aae9da1e2b2a2908dc168f7247d4c9013f893c6fd"
+    },
+    "django-safe-migration": {
+      "source": "vintasoftware/django-ai-plugins",
+      "sourceType": "github",
+      "skillPath": "skills/django-safe-migration/SKILL.md",
+      "computedHash": "b28691565037d29de87a2f16d39bbf825685b46a6249226d05b70533125d4f23"
+    },
+    "django-tdd": {
+      "source": "affaan-m/ecc",
+      "sourceType": "github",
+      "skillPath": "skills/django-tdd/SKILL.md",
+      "computedHash": "65809c76dd072aa8d59c32d9119987429e15047b5ea4708003de145327710db4"
+    }
+  }
+}

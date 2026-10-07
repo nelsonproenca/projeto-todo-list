@@ -1,0 +1,36 @@
+[project]
+name = "projeto-todo-list"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Nelson Proenca", email = "nelson.proenca@loonar.com.br" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "django>=6.1.1",
+]
+
+[project.scripts]
+projeto-todo-list = "projeto_todo_list:main"
+
+[build-system]
+requires = ["uv_build>=0.12.21,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "factory-boy>=3.3.3",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "pytest-django>=4.14.0",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "core.settings"
+testpaths = ["tasks/tests"]
+python_files = ["test_*.py"]
+addopts = "--strict-markers"
+markers = [
+    "integration: end-to-end user journeys",
+]

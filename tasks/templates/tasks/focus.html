@@ -1,0 +1,15 @@
+{% extends "tasks/base.html" %}
+{% load static %}
+{% block title %}{{ task.title }}{% endblock %}
+{% block nav %}{% endblock %}
+{% block content %}
+<section class="focus">
+  <h1 class="focus-title">{{ task.title }}</h1>
+  <p class="focus-timer" id="timer" data-elapsed="{{ elapsed }}" aria-live="off">00:00</p>
+  <div class="focus-actions">
+    <form method="post" action="{% url 'tasks:focus_complete' task.pk %}">{% csrf_token %}{% include "tasks/_cansado.html" %}<button type="submit" class="btn btn-primary btn-large">Concluir</button></form>
+    <form method="post" action="{% url 'tasks:focus_leave' task.pk %}">{% csrf_token %}{% include "tasks/_cansado.html" %}<button type="submit" class="btn">Sair do foco</button></form>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{% static 'tasks/focus.js' %}"></script>{% endblock %}

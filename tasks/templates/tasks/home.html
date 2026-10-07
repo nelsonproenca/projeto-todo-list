@@ -1,0 +1,62 @@
+{% extends "tasks/base.html" %}
+{% block content %}
+<div class="head">
+  <h1>Hoje</h1>
+  <a class="toggle{% if cansado %} on{% endif %}" role="button" aria-pressed="{% if cansado %}true{% else %}false{% endif %}" href="{% url 'tasks:home' %}{% if not cansado %}?cansado=1{% endif %}">Estou cansado</a>
+</div>
+
+{% if overflow %}
+<section class="panel full-day" aria-labelledby="full-day-title">
+  <h2 id="full-day-title">Seu dia está cheio</h2>
+  <p>Você já tem 3 tarefas. Para adicionar <strong>{{ overflow.title }}</strong>, conclua uma delas ou guarde-a para depois.</p>
+  <form method="post" action="{% url 'tasks:task_create' %}">
+    {% csrf_token %}{% include "tasks/_cansado.html" %}
+    <input type="hidden" name="title" value="{{ overflow.title }}">
+    <input type="hidden" name="energy" value="{{ overflow.energy }}">
+    <input type="hidden" name="destino" value="depois">
+    <button type="submit" class="btn btn-primary">Guardar para depois</button>
+  </form>
+  <ul class="task-list">
+    {% for task in tasks %}
+    <li class="task">
+      <span class="task-title">{{ task.title }} <span class="badge energy-{{ task.energy }}">{{ task.get_energy_display }}</span></span>
+      <form method="post" action="{% url 'tasks:task_complete' task.pk %}">
+        {% csrf_token %}{% include "tasks/_cansado.html" %}
+        <input type="hidden" name="novo_title" value="{{ overflow.title }}">
+        <input type="hidden" name="novo_energy" value="{{ overflow.energy }}">
+        <button type="submit" class="btn btn-small">Concluir e adicionar</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% else %}
+
+<ul class="task-list">
+  {% for task in tasks %}
+  <li class="task">
+    <span class="task-title">{{ task.title }} <span class="badge energy-{{ task.energy }}">{{ task.get_energy_display }}</span></span>
+    <span class="task-actions">
+      <a class="btn btn-small btn-primary" href="{% url 'tasks:focus' task.pk %}{% if cansado %}?cansado=1{% endif %}">Fazer agora</a>
+      <form method="post" action="{% url 'tasks:task_complete' task.pk %}">{% csrf_token %}{% include "tasks/_cansado.html" %}<button class="btn btn-small" type="submit">Concluir</button></form>
+      <form method="post" action="{% url 'tasks:task_move' task.pk %}">{% csrf_token %}{% include "tasks/_cansado.html" %}<input type="hidden" name="para" value="depois"><button class="btn btn-small" type="submit">Para depois</button></form>
+      <a class="btn btn-small" href="{% url 'tasks:edit' task.pk %}{% if cansado %}?cansado=1{% endif %}">Editar</a>
+      <form method="post" action="{% url 'tasks:task_delete' task.pk %}">{% csrf_token %}{% include "tasks/_cansado.html" %}<button class="btn btn-small btn-danger" type="submit">Excluir</button></form>
+    </span>
+  </li>
+  {% empty %}
+  {% if no_light_tasks %}
+  <li class="empty notice">Não há tarefas leves agora. <a href="{% url 'tasks:home' %}">Desativar o filtro</a></li>
+  {% else %}
+  <li class="empty">Nada para hoje. Adicione até 3 tarefas abaixo.</li>
+  {% endif %}
+  {% endfor %}
+</ul>
+
+<form method="post" action="{% url 'tasks:task_create' %}" class="new-task">
+  {% csrf_token %}{% include "tasks/_cansado.html" %}
+  {% include "tasks/_task_form_fields.html" %}
+  <button type="submit" class="btn btn-primary">Adicionar</button>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+<label class="field">
+  <span class="sr-only">Tarefa</span>
+  <input type="text" name="title" maxlength="120" placeholder="O que você vai fazer?" value="{{ form.title.value|default_if_none:'' }}" required autofocus>
+</label>
+{% for error in form.title.errors %}<p class="field-error">{{ error }}</p>{% endfor %}
+<fieldset class="energy-choice">
+  <legend>Energia</legend>
+  {% for value, label in form.fields.energy.choices %}
+  <label class="energy-option energy-{{ value }}">
+    <input type="radio" name="energy" value="{{ value }}"{% if form.energy.value|default:'medium' == value %} checked{% endif %}>
+    {{ label }}
+  </label>
+  {% endfor %}
+</fieldset>
+{% for error in form.energy.errors %}<p class="field-error">{{ error }}</p>{% endfor %}

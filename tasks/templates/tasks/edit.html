@@ -1,0 +1,10 @@
+{% extends "tasks/base.html" %}
+{% block content %}
+<h1>Editar tarefa</h1>
+<form method="post" action="{% url 'tasks:task_update' task.pk %}" class="new-task">
+  {% csrf_token %}{% include "tasks/_cansado.html" %}
+  {% include "tasks/_task_form_fields.html" %}
+  <button type="submit" class="btn btn-primary">Salvar</button>
+  <a class="btn" href="{% url 'tasks:home' %}{% if cansado %}?cansado=1{% endif %}">Cancelar</a>
+</form>
+{% endblock %}
